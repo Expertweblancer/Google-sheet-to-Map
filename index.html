@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Givaudan's Virtual Tours - Site Selector</title>
+    <meta name="description" content="Responsive, Bootstrap, BS4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.42&key=AIzaSyDWWlvK9yjTPVmj8L46njmv_r_RQ2k_r60&libraries=places"></script>
+    <link rel="stylesheet" href="assets/fonts/style.css">
+    <link rel="stylesheet" href="assets/fonts/myriad/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/i-con.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/foundation-datepicker.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/infobox.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/foundation-datepicker.js"></script>
+    <script src="assets/js/markercluster.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-timepicker.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sheetrock/1.1.4/dist/sheetrock.min.js"></script>
+
+</head>
+
+<body>
+    <header id="header" class="page-header bg-white box-shadow sticky">
+        <div class="row d-flex w-100 justify-content-between mx-0" style="background-color:black; height: 44px;">
+            <div class="d-flex align-items-center h-100" id="logo" style="margin-left: 20px;">
+                <img id="logo-image" src="assets/images/logo.png">
+                <!-- <span id="logo-title" class="responsive-title" style="font-family: 'Georgia Regular'; color: rgba(103, 222, 235, 0.788); margin-left: 10px; cursor: default;"> Givaudan's Virtual Tours</span> -->
+            </div>
+            <div class="d-flex align-items-center justify-content-between" id="more-option">
+                <img id="open-bar" src="assets/images/nav.png" alt="" style="margin-right: 30px; cursor: pointer;" onclick="openNav()" class="float-right">
+                <img id="close-bar" src="assets/images/icon-close.png" alt="" style="margin-right: 30px; cursor: pointer;" onclick="openNav()" class="float-right">
+            </div>
+        </div>
+    </header>
+    <table id="statistics" class="table d-none">
+    </table>
+    <div id="mySidenav" class="sidenav p-3 d-none" style="width: 300px;">
+        <div class="row mx-0 px-2 nav-title mb-2 mt-3">What would you like to visit today?</div>
+        <div class="row mx-0 px-2 reset-filter">
+            <a href="#" id="reset_filter">Reset Filter</a>    
+        </div>
+        <div class="row mx-0 px-2">
+            <div class="col-12 px-0 division">DIVISION</div>
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-flower"> <img src="assets/images/flower.png" alt="" class="flower-img">  <span class="chk-filter pl-1" data-value="F&B">Fragrance & Beauty</span>
+            </div>
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-taste"><img src="assets/images/taste.png" alt="" class="taste-img">  <span class="chk-filter pl-1" data-value="T&W"> Taste & Wellbeing</span>
+            </div>
+           
+        </div>
+        <div class="row mx-0 px-2">
+            <div class="col-12 px-0 division">ACTIVITIES</div>
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-production"><img src="assets/images/production.png" alt="" class="production-img"><span class="chk-filter pl-1">Flavours</span>
+            </div>
+            
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-sales"><img src="assets/images/sales.png" alt="" class="sales-img"><span class="chk-filter pl-1">Sales Retail</span>
+            </div>
+            
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-creation"><img src="assets/images/creation.png" alt="" class="creation-img"><span class="chk-filter pl-1">Creation</span>
+            </div>
+            
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-innovation"><img src="assets/images/innovation.png" alt="" class="innovation-img"><span class="chk-filter pl-1">Innovation</span>
+            </div>
+
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-sourcing"><img src="assets/images/sourcing.png" alt="" class="sourcing-img"><span class="chk-filter pl-1">Sourcing</span>
+            </div>
+            <div class="col-12 px-0">
+                <input type="checkbox" id="chb-other"><img src="assets/images/other.png" alt="" class="other-img"><span class="chk-filter pl-1">Other</span>
+            </div>
+        </div>
+        <!-- <div class="row mx-0 px-2 pt-5">
+            <div class="col-12">
+                <form class="card card-sm" style="border-radius: 3rem; border: 2px solid;">
+                    <div class="card-body row d-flex align-items-center" style="padding: 0.3rem;">
+                         <div class="col-10 pr-0">
+                            <input id="filter-search" class="form-control form-control-sm form-control-borderless" type="search" placeholder="Search topics or keywords" style="border:0px;">
+                        </div>
+                        <div class="col-2 pl-0">
+                            <i class="fas fa-search h5 text-body form-con" style="margin:auto;"></i>
+                        </div>
+                     </div>
+                </form>
+            </div>
+        </div> -->
+    </div>
+    <div class="row m-0" id="FindMeOnGoogleMap">
+        <!-- <div class="col-4">
+            <div class="row mx-5">
+                <span class="h3 font-weight-bold ml-1 mt-5 col-12">Pick up</span>
+                <input id="searchInput_pickup" class="input-controls element-border pac-target-input w-100" type="text" value="Av. Eng. Billings, 2185 - Jaguaré, São Paulo - SP, 05321-010, Brazil">
+                
+            </div>
+            <div class="row mx-5">
+                <span class="h3 font-weight-bold ml-1 mt-5 col-12">Delivery</span>
+                <input id="searchInput_delivery" class="input-controls element-border pac-target-input w-100" type="text" value="Chemin de la Parfumerie 5, 1214 Vernier, Switzerland">
+            </div>
+            <div class="row mx-5 justify-content-between">
+                <input type="button" class="btn btn-primary mt-5" value="Admin Settings" onclick="onSettings()" style="font-size: large; display: none;">
+            </div>
+        </div> -->
+        <div class="col-12" id="map" style="width: 100%; height: calc(100% - 60px);"></div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+.sidenav {
+    height: 90%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 44px;
+    bottom: 44px;
+    left: 500px;
+    background-color: #212121;
+    overflow-x: hidden;
+    transition: 0.5s;
+    font-family: 'Myriad Pro Condensed';
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+.nav-title {
+    /* font-size: 30px; */
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 500;
+    color: white;
+    /* font-weight: bold; */
+}
+
+.division{
+    font-size: 16px;
+    color: white;
+    font-family: 'Myriad Pro Condensed';
+    margin-top: 2rem;
+    margin-bottom: 0.1rem;
+}
+
+.reset-filter{
+    display: flex;
+    justify-content: right;
+}
+
+.reset-filter a{
+    margin: 0 2em;
+    color: #55b7bc;
+    text-decoration: underline;
+    font-size: 14px;
+    font-family: 'Myriad Pro Condensed';
+}
+
+.flower-img{
+    margin: -8px 0 0 2px;
+    width: 18px;
+}
+
+.taste-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.production-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.sales-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.creation-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.innovation-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.sourcing-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.other-img{
+    margin: -8px 0 0 5px;
+    width: 18px;
+}
+
+.chk-filter {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+#propertymap .gm-style-iw{
+    box-shadow:none;
+    background: rgb(0, 0, 0)!important;
+    /* background: transparent!important; */
+    color:#515151;
+    font-family: "Georgia", "Open Sans", Sans-serif;
+    text-align: center;
+    width: 100% !important;
+    border-radius: 0;
+    left: 0 !important;
+    top: 20px !important;
+    opacity: 0;
+
+ 
+}
+.gm-style .gm-style-iw-t::after {
+    background: rgb(0, 0, 0);
+    box-shadow: -2px 2px 2px 0 rgb(178 178 178 / 40%);
+    content: "";
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: -20px;
+    transform: translate(-50%,-50%,-50%, -50%) rotate(-45deg);
+    width: 30px;
+    box-shadow: -8px 8px 7px 0px rgb(196 242 247 / 60%);
+    opacity: .5;
+
+ }
+.gm-style-iw-d {
+    overflow: hidden !important;
+}
+.gm-style .gm-style-iw-c {
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    top: -20px;
+    left: 0;
+    /* transform: translate(-50%,-100%); */
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 3px 3px rgb(196 242 247 / 60%);
+    border-radius: 0px;
+    padding: 0px;
+    max-width: 300px !important;
+    min-width: 250px !important;
+    max-height: fit-content !important;
+    margin-left: 50px;
+    opacity: .8;
+}
+
+ 
+
+.property_title {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    font-size: 23px;
+    font-family: 'Myriad Pro Condensed';
+    letter-spacing: 1px;
+    color: rgb(103 222 235);
+}
+
+.property_content {
+    font-family: 'Myriad Pro Condensed';
+    color: white;
+    font-size: 15px;
+    padding-top: .1rem;
+    flex-wrap: wrap;
+    letter-spacing: 1px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.property_activity {
+    padding-top: 0;
+    padding-left: 1rem;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-family: 'Myriad Pro Condensed';
+    color: rgb(103 222 235);
+}
+
+.property_detail {
+    letter-spacing: 1px;
+    font-family: 'Myriad Pro Condensed';
+    color: white;
+    font-size: 15px;
+    padding-top: .1rem;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+  
+}
+
+.property_category{
+    letter-spacing: 1px;
+    font-family: 'Myriad Pro Condensed';
+    color: white;
+    font-size: 15px;
+    padding-top: .1rem;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    white-space: pre-line;
+}
+
+@media (max-width : 700px) {
+    .responsive-title {
+        font-size: 20px;
+    }
+}
+@media (min-width : 700px) {
+    .responsive-title {
+        font-size: 28px;
+    }
+}
+
+#logo-image:hover {
+    cursor: pointer;
+}
+
+/* .gmnoprint {
+    display: none;
+} */
+
+.gm-ui-hover-effect {
+    display: none !important;
+}
