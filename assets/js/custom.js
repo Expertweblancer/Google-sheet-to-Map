@@ -33,14 +33,31 @@ $(document).ready(function () {
     open_flag = 0;
   }, 2000);
 
-  $('input[type="checkbox"]').change(function () {
-    set_Filter();
+  // $('input[type="checkbox"]').change(function () {
+  $('.category').change(function () {
+
+    
+    if($(".category:checked").length == 0) {
+      locations = [];
+      initLocations();
+      initMap();
+    } else if($(".category:checked").length ==  $('.category').length) {
+      locations = [];
+      initLocations();
+      initMap();
+    }else{
+      set_Filter();
+    }
   });
 
   $('#logo-image').click(function () {
+    locations = [];
+    initLocations();
     initMap();
   });
   $('#reset_filter').click(function () {
+    locations = [];
+    initLocations();
     initMap();
   });
   
