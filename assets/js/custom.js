@@ -35,30 +35,35 @@ $(document).ready(function () {
 
   // $('input[type="checkbox"]').change(function () {
   $('.category').change(function () {
-
-    
     if($(".category:checked").length == 0) {
-      locations = [];
-      initLocations();
-      initMap();
+      reset_map();
     } else if($(".category:checked").length ==  $('.category').length) {
-      locations = [];
-      initLocations();
-      initMap();
+      reset_map();
     }else{
       set_Filter();
     }
   });
+  $('.subcategory').change(function () {
+    if($(".subcategory:checked").length == 0) {
+      reset_map();
+    } else if($(".subcategory:checked").length ==  $('.subcategory').length) {
+      reset_map();
+    }else{
+      set_subFilter();
+    }
+  });
 
   $('#logo-image').click(function () {
-    locations = [];
-    initLocations();
-    initMap();
+    reset_map();
+    $('input[type="checkbox"]').each(function() {
+			this.checked = false;
+		  });
   });
   $('#reset_filter').click(function () {
-    locations = [];
-    initLocations();
-    initMap();
+     reset_map();
+     $('input[type="checkbox"]').each(function() {
+			this.checked = false;
+		  });
   });
   
 });
@@ -67,6 +72,70 @@ function initLocations() {
   for (let i = 0; i < $('tbody tr').length; i++) {
     locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
   }
+}
+
+function reset_map(){
+  locations = [];
+  initLocations();
+  m_cluster.clearMarkers();
+  const markers = locations.map((location, i) => {
+    var marker = new google.maps.Marker({
+      position: location,
+      icon: {
+        // url: "assets/images/Givaudan-textile-Logo.png", // url
+        url: "assets/images/G-hotspot.png", // url
+        scaledSize: new google.maps.Size(20, 20), // scaled size
+      },
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.close();
+      map.setCenter(this.getPosition());
+      if (zoom_level != 18) {
+        console.log($('tbody tr').eq(i).children().eq(7).text());
+        window.location.href = "https://" + $('tbody tr').eq(i).children().eq(7).text();
+      }
+    });
+    google.maps.event.addListener(marker, 'mouseover', function () {
+      var contents = `
+        <div class='map_info_wrapper'>
+          <div class='property_content_wrap'>
+            <div class='property_title'>
+              <span>` + $('tbody tr').eq(i).children().eq(0).text() + `</span>
+            </div>
+    
+            <div class='property_detail'>
+              <span>` + $('tbody tr').eq(i).children().eq(1).text() + `</span><br>
+           
+              <span>` + $('tbody tr').eq(i).children().eq(2).text() + `</span><br>
+            
+              <span>` + $('tbody tr').eq(i).children().eq(3).text() + `</span>
+            </div>
+
+            <div class='property_activity'>
+              <span>Activities</span>
+            </div>
+    
+            <div class='property_category'>
+              <span>` + $('tbody tr').eq(i).children().eq(6).text() + `</span><br>
+            
+            </div>
+          </div>
+        </div>`;
+      infowindow = new google.maps.InfoWindow({
+        content: contents,
+      });
+      infowindow.open(map, this);
+    });
+    google.maps.event.addListener(marker, 'mouseout', function () {
+      infowindow.close();
+    });
+    return marker;
+  });
+  m_cluster = new MarkerClusterer(map, markers, {
+    imagePath:
+      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+    averageCenter: true,
+  });
 }
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -379,11 +448,88 @@ function openNav() {
   }
 }
 
-function set_Filter() {
+function set_subFilter() {
   locations = [];
   data = [];
   var filter_str = [];
   for (let i = 0; i < $('input[type="checkbox"]').length; i++) {
+    if ($('input[type="checkbox"]').eq(i).prop("checked") == true)
+      // filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').text());
+      filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').attr('data-value'));
+  }
+  for (let i = 0; i < $('tbody tr').length; i++) {
+    for (let j = 0; j < filter_str.length; j++) {
+      // if ($('tbody tr').eq(i).children().eq(6).text() == filter_str[j])
+      if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1)
+        locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
+        data.push({"number": i});
+    }
+  }
+  m_cluster.clearMarkers();
+  const markers = locations.map((location, i) => {
+    var marker = new google.maps.Marker({
+      position: location,
+      icon: {
+        url: "assets/images/G-hotspot.png", // url
+        scaledSize: new google.maps.Size(20, 20), // scaled size
+      },
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.close();
+      map.setCenter(this.getPosition());
+      if (zoom_level != 18) {
+        window.location.href = "http://www.blanklink.com";
+      }
+    });
+    google.maps.event.addListener(marker, 'mouseover', function () {
+      var contents = `
+      <div class='map_info_wrapper'>
+          <div class='property_content_wrap'>
+            <div class='property_title'>
+               <span>` + $('tbody tr').eq(data[i+1].number).children().eq(0).text() + `</span>
+            </div>
+    
+            <div class='property_content'>
+              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(1).text() + `</span>
+            </div>
+            <div class='property_content'>
+              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(2).text() + `</span>
+            </div>
+            <div class='property_content'>
+              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(3).text() + `</span>
+            </div>
+
+            <div class='property_activity'>
+              <span>Activities</span>
+            </div>
+    
+            <div class='property_category'>
+            <span>` + $('tbody tr').eq(data[i+1].number).children().eq(6).text() + `</span><br>
+            </div>
+          </div>
+        </div>`;
+      infowindow = new google.maps.InfoWindow({
+        content: contents,
+      });
+      infowindow.open(map, this);
+    });
+    google.maps.event.addListener(marker, 'mouseout', function () {
+      infowindow.close();
+    });
+    return marker;
+  });
+  m_cluster = new MarkerClusterer(map, markers, {
+    imagePath:
+      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+    averageCenter: true,
+  });
+}
+
+function set_Filter() {
+  locations = [];
+  data = [];
+  var filter_str = [];
+  for (let i = 0; i < $('.subcategory').length; i++) {
     if ($('input[type="checkbox"]').eq(i).prop("checked") == true)
       // filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').text());
       filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').attr('data-value'));
