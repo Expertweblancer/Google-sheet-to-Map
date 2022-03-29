@@ -20,7 +20,7 @@ var m_cluster;
 $(document).ready(function () {
   $('#close-bar').css('display', 'none');
 
-  var height = $(window).height() - 80;
+  var height = $(window).height() - 44;
   $('#map').css("height", height);
   $('#statistics').sheetrock({
     url: mySpreadsheet
