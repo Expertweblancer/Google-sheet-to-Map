@@ -36,18 +36,34 @@ $(document).ready(function () {
   // $('input[type="checkbox"]').change(function () {
   $('.category').change(function () {
     if($(".category:checked").length == 0) {
-      reset_map();
+      if($(".subcategory:checked").length == 0){
+        reset_map();
+      }else{
+        set_subFilter();
+      }
     } else if($(".category:checked").length ==  $('.category').length) {
-      reset_map();
+      if($(".subcategory:checked").length == 0){
+        reset_map();
+      }else{
+        set_subFilter();
+      }
     }else{
       set_Filter();
     }
   });
   $('.subcategory').change(function () {
     if($(".subcategory:checked").length == 0) {
-      reset_map();
+      if($(".category:checked").length == 0){
+        reset_map();
+      }else{
+        set_Filter();
+      }
     } else if($(".subcategory:checked").length ==  $('.subcategory').length) {
-      reset_map();
+      if($(".category:checked").length == 0){
+        reset_map();
+      }else{
+        set_Filter();
+      }
     }else{
       set_subFilter();
     }
@@ -452,17 +468,29 @@ function set_subFilter() {
   locations = [];
   data = [];
   var filter_str = [];
-  for (let i = 0; i < $('input[type="checkbox"]').length; i++) {
-    if ($('input[type="checkbox"]').eq(i).prop("checked") == true)
-      // filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').text());
-      filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').attr('data-value'));
+  var filter_str_or = [];
+  for (let i = 0; i < $('.subcategory').length; i++) {
+    if ($('.subcategory').eq(i).prop("checked") == true)
+      filter_str.push($('.subcategory').eq(i).parent().find('span').attr('data-value'));
+  }
+  for (let i = 0; i < $('.category').length; i++) {
+    if ($('.category').eq(i).prop("checked") == true)
+      filter_str_or.push($('.category').eq(i).parent().find('span').attr('data-value'));
   }
   for (let i = 0; i < $('tbody tr').length; i++) {
     for (let j = 0; j < filter_str.length; j++) {
       // if ($('tbody tr').eq(i).children().eq(6).text() == filter_str[j])
-      if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1)
+      if(filter_str_or.length > 0){
+        for(let k=0; k < filter_str_or.length; k++){
+          if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1 && $('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str_or[k]) != -1)
+          locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
+          data.push({"number": i});
+        }
+      }else{
+        if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1 )
         locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
         data.push({"number": i});
+      }
     }
   }
   m_cluster.clearMarkers();
@@ -529,17 +557,29 @@ function set_Filter() {
   locations = [];
   data = [];
   var filter_str = [];
-  for (let i = 0; i < $('.subcategory').length; i++) {
-    if ($('input[type="checkbox"]').eq(i).prop("checked") == true)
+  var filter_str_or = [];
+  for (let i = 0; i < $('.category').length; i++) {
+    if ($('.category').eq(i).prop("checked") == true)
       // filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').text());
-      filter_str.push($('input[type="checkbox"]').eq(i).parent().find('span').attr('data-value'));
+      filter_str.push($('.category').eq(i).parent().find('span').attr('data-value'));
+  }
+  for (let i = 0; i < $('.subcategory').length; i++) {
+    if ($('.subcategory').eq(i).prop("checked") == true)
+      filter_str_or.push($('.subcategory').eq(i).parent().find('span').attr('data-value'));
   }
   for (let i = 0; i < $('tbody tr').length; i++) {
     for (let j = 0; j < filter_str.length; j++) {
-      // if ($('tbody tr').eq(i).children().eq(6).text() == filter_str[j])
-      if ($('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str[j]) != -1)
+      if(filter_str_or.length > 0){
+        for(let k=0; k < filter_str_or.length; k++){
+          if ($('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str[j]) != -1 && $('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str_or[k]) != -1)
+          locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
+          data.push({"number": i});
+        }
+      }else{
+        if ($('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str[j]) != -1 )
         locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
         data.push({"number": i});
+      }
     }
   }
   m_cluster.clearMarkers();
