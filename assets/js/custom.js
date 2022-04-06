@@ -18,8 +18,11 @@ var infowindow;
 var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1o0J_u-aS2LwU6xJodKn6d6jyknpkVu62Aj33nbjvHRI/edit#gid=0';
 var m_cluster;
 $(document).ready(function () {
-  $('#close-bar').css('display', 'none');
-
+  $('#open-bar').css('display', 'none');
+ 
+  $('#mySidenav').css("left", $(window).width()-300);
+  $('#mySidenav').removeClass('d-none');
+  open_flag = 1;
   var height = $(window).height() - 44;
   $('#map').css("height", height);
   $('#statistics').sheetrock({
@@ -28,9 +31,7 @@ $(document).ready(function () {
   setTimeout(() => {
     initLocations();
     initMap();
-    $('#mySidenav').css("left", $(window).width());
-    $('#mySidenav').removeClass('d-none');
-    open_flag = 0;
+   
   }, 2000);
 
   // $('input[type="checkbox"]').change(function () {
@@ -156,7 +157,7 @@ function reset_map(){
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: zoom_level,
-    center: { lat: 20, lng: -25 },
+    center: { lat: 20, lng: 25 },
     styles: [
       {
         "elementType": "geometry",
