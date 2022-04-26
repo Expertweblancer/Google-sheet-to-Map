@@ -484,20 +484,38 @@ function set_subFilter() {
       if(filter_str_or.length > 0){
         for(let k=0; k < filter_str_or.length; k++){
           if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1 && $('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str_or[k]) != -1)
-          locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
-          data.push({"number": i});
+          locations.push({ 
+            lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), 
+            lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()),
+            title: $('tbody tr').eq(i).children().eq(0).text(),  
+            address: $('tbody tr').eq(i).children().eq(1).text(),  
+            city: $('tbody tr').eq(i).children().eq(2).text(),  
+            country: $('tbody tr').eq(i).children().eq(3).text(),  
+            category: $('tbody tr').eq(i).children().eq(6).text(),  
+            link: $('tbody tr').eq(i).children().eq(7).text(),  
+          });
+
         }
       }else{
         if ($('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str[j]) != -1 )
-        locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
-        data.push({"number": i});
+        locations.push({ 
+          lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), 
+          lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()),
+          title: $('tbody tr').eq(i).children().eq(0).text(),  
+          address: $('tbody tr').eq(i).children().eq(1).text(),  
+          city: $('tbody tr').eq(i).children().eq(2).text(),  
+          country: $('tbody tr').eq(i).children().eq(3).text(),  
+          category: $('tbody tr').eq(i).children().eq(6).text(),  
+          link: $('tbody tr').eq(i).children().eq(7).text(),  
+        });
+
       }
     }
   }
   m_cluster.clearMarkers();
   const markers = locations.map((location, i) => {
     var marker = new google.maps.Marker({
-      position: location,
+      position: {lat: location.lat, lng: location.lng },
       icon: {
         url: "assets/images/G-hotspot.png", // url
         scaledSize: new google.maps.Size(20, 20), // scaled size
@@ -507,34 +525,36 @@ function set_subFilter() {
       infowindow.close();
       map.setCenter(this.getPosition());
       if (zoom_level != 18) {
-        window.location.href = "http://www.blanklink.com";
+        window.location.href = "https://" + location.link;
       }
     });
     google.maps.event.addListener(marker, 'mouseover', function () {
       var contents = `
       <div class='map_info_wrapper'>
           <div class='property_content_wrap'>
+
             <div class='property_title'>
-               <span>` + $('tbody tr').eq(data[i+1].number).children().eq(0).text() + `</span>
+            <span>` + location.title + `</span>
             </div>
-    
+
             <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(1).text() + `</span>
-            </div>
-            <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(2).text() + `</span>
+              <span>` + location.address + `</span>
             </div>
             <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(3).text() + `</span>
+              <span>` + location.city + `</span>
+            </div>
+            <div class='property_content'>
+              <span>` + location.country + `</span>
             </div>
 
             <div class='property_activity'>
               <span>Activities</span>
             </div>
-    
+
             <div class='property_category'>
-            <span>` + $('tbody tr').eq(data[i+1].number).children().eq(6).text() + `</span><br>
+            <span>` + location.category + `</span><br>
             </div>
+
           </div>
         </div>`;
       infowindow = new google.maps.InfoWindow({
@@ -573,20 +593,37 @@ function set_Filter() {
       if(filter_str_or.length > 0){
         for(let k=0; k < filter_str_or.length; k++){
           if ($('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str[j]) != -1 && $('tbody tr').eq(i).children().eq(8).text().indexOf(filter_str_or[k]) != -1)
-          locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
-          data.push({"number": i});
+          locations.push({ 
+            lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), 
+            lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()),
+            title: $('tbody tr').eq(i).children().eq(0).text(),  
+            address: $('tbody tr').eq(i).children().eq(1).text(),  
+            city: $('tbody tr').eq(i).children().eq(2).text(),  
+            country: $('tbody tr').eq(i).children().eq(3).text(),  
+            category: $('tbody tr').eq(i).children().eq(6).text(),  
+            link: $('tbody tr').eq(i).children().eq(7).text(),  
+          });          
         }
       }else{
         if ($('tbody tr').eq(i).children().eq(6).text().indexOf(filter_str[j]) != -1 )
-        locations.push({ lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()) });
-        data.push({"number": i});
+        locations.push({ 
+          lat: parseFloat($('tbody tr').eq(i).children().eq(4).text()), 
+          lng: parseFloat($('tbody tr').eq(i).children().eq(5).text()),
+          title: $('tbody tr').eq(i).children().eq(0).text(),  
+          address: $('tbody tr').eq(i).children().eq(1).text(),  
+          city: $('tbody tr').eq(i).children().eq(2).text(),  
+          country: $('tbody tr').eq(i).children().eq(3).text(),  
+          category: $('tbody tr').eq(i).children().eq(6).text(),  
+          link: $('tbody tr').eq(i).children().eq(7).text(),  
+        });
+ 
       }
     }
   }
   m_cluster.clearMarkers();
   const markers = locations.map((location, i) => {
     var marker = new google.maps.Marker({
-      position: location,
+      position: {lat: location.lat, lng: location.lng },
       icon: {
         url: "assets/images/G-hotspot.png", // url
         scaledSize: new google.maps.Size(20, 20), // scaled size
@@ -596,7 +633,7 @@ function set_Filter() {
       infowindow.close();
       map.setCenter(this.getPosition());
       if (zoom_level != 18) {
-        window.location.href = "http://www.blanklink.com";
+        window.location.href = "https://" + location.link;
       }
     });
     google.maps.event.addListener(marker, 'mouseover', function () {
@@ -604,17 +641,17 @@ function set_Filter() {
       <div class='map_info_wrapper'>
           <div class='property_content_wrap'>
             <div class='property_title'>
-               <span>` + $('tbody tr').eq(data[i+1].number).children().eq(0).text() + `</span>
+               <span>` + location.title + `</span>
             </div>
     
             <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(1).text() + `</span>
+              <span>` + location.address + `</span>
             </div>
             <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(2).text() + `</span>
+              <span>` + location.city + `</span>
             </div>
             <div class='property_content'>
-              <span>` + $('tbody tr').eq(data[i+1].number).children().eq(3).text() + `</span>
+              <span>` + location.country + `</span>
             </div>
 
             <div class='property_activity'>
@@ -622,7 +659,7 @@ function set_Filter() {
             </div>
     
             <div class='property_category'>
-            <span>` + $('tbody tr').eq(data[i+1].number).children().eq(6).text() + `</span><br>
+            <span>` + location.category + `</span><br>
             </div>
           </div>
         </div>`;
